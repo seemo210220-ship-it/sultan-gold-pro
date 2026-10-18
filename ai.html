@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SULTAN GOLD AI</title>
+<style>
+:root{--bg:#071426;--panel:#101f38;--ice:#83d7ff;--text:#f3f9ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif}
+header{padding:22px 6%;border-bottom:1px solid #294263;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{font-weight:bold;color:var(--ice);font-size:22px}
+a{color:var(--ice);text-decoration:none}
+main{max-width:850px;margin:50px auto;padding:0 18px}
+h1{color:var(--ice);font-size:30px}
+p{line-height:1.9;color:#c5d7e9}
+.panel{background:var(--panel);border:1px solid #294263;border-radius:18px;padding:25px;margin-top:25px}
+label{display:block;margin-bottom:12px}
+textarea{width:100%;min-height:130px;background:#071426;color:white;border:1px solid #42617d;border-radius:12px;padding:15px;font:inherit;resize:vertical}
+button{background:var(--ice);color:#071426;border:0;border-radius:10px;padding:13px 25px;font:inherit;font-weight:bold;cursor:pointer;margin-top:15px}
+button:disabled{opacity:.55;cursor:wait}
+#result{white-space:pre-wrap;line-height:1.9;overflow-wrap:anywhere}
+small{color:#a9c2d9}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">SULTAN GOLD AI</div>
+<a href="index.html">العودة للرئيسية ←</a>
+</header>
+<main>
+<h1>الذكاء الاصطناعي للأسواق المالية</h1>
+<p>مساعد تعليمي لفهم التحليل الفني وإدارة المخاطر. لا يقدم توصيات استثمارية شخصية أو ضمانات للربح.</p>
+<div class="panel">
+<label for="question">اكتب سؤالك عن التحليل الفني</label>
+<textarea id="question" placeholder="مثال: اشرح لي تقاطع EMA 9 و EMA 21 وكيف أستخدم وقف الخسارة"></textarea>
+<button id="ask" type="button">تحليل بالذكاء الاصطناعي</button>
+</div>
+<div class="panel">
+<strong>نتيجة التحليل</strong>
+<p id="result" role="status" aria-live="polite">ستظهر الإجابة هنا بعد إرسال السؤال.</p>
+</div>
+<p><small>المحتوى تعليمي وليس توصية مالية. لا تُدخل كلمات مرور أو مفاتيح API أو بيانات حساباتك.</small></p>
+</main>
+<script>
+const btn=document.getElementById("ask");
+const result=document.getElementById("result");
+btn.addEventListener("click",async()=>{
+  const question=document.getElementById("question").value.trim();
+  if(!question){
+    result.textContent="اكتب سؤالك أولاً.";
+    return;
+  }
+  btn.disabled=true;
+  result.textContent="جارٍ الاتصال بالمساعد...";
+  try{
+    const response=await fetch("/.netlify/functions/ai",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({message:question,question:question,prompt:question})
+    });
+    const data=await response.json();
+    if(!response.ok){
+      throw new Error(data.error||data.message||"تعذر تنفيذ الطلب");
+    }
+    const answer=data.reply??data.answer??data.response??data.result??data.analysis;
+    result.textContent=typeof answer==="string"
+      ?answer
+      :answer?JSON.stringify(answer,null,2)
+      :"تم الاتصال، لكن صيغة الرد تحتاج إلى ضبط.";
+  }catch(error){
+    result.textContent="تعذر الحصول على التحليل: "+error.message;
+  }finally{
+    btn.disabled=false;
+  }
+});
+</script>
+</body>
+</html>

@@ -2,497 +2,286 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071426">
-<title>SULTAN GOLD PRO | الأسواق والمؤشرات</title>
+<title>SULTAN GOLD PRO | منصة الأسواق</title>
 
 <style>
-:root {
-  --navy:#071426;
-  --panel:#101f38;
-  --ice:#83d7ff;
-  --line:#294263;
-  --muted:#a8bfd8;
-  --green:#27d9a1;
-  --red:#ff657a;
-  --blue:#168cff;
-  --gold:#e8c66a;
+:root{
+ --navy:#071426;
+ --panel:#101f38;
+ --ice:#83d7ff;
+ --line:#294263;
+ --muted:#a8bfd8;
+ --green:#27d9a1;
+ --red:#ff657a;
+ --gold:#e8c66a
 }
-
-* {
-  box-sizing:border-box;
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:var(--navy);
+ color:#f3f9ff;
+ font-family:Tahoma,Arial,sans-serif
 }
-
-body {
-  margin:0;
-  background:var(--navy);
-  color:#f3f9ff;
-  font-family:Tahoma,Arial,sans-serif;
+header{
+ text-align:center;
+ background:#09182b;
+ border-bottom:1px solid var(--line);
+ padding:24px 12px
 }
-
-header {
-  text-align:center;
-  background:#09182b;
-  border-bottom:1px solid var(--line);
-  padding:24px 12px;
+h1{margin:0;color:var(--ice)}
+header p,.note{color:var(--muted)}
+main{max-width:1450px;margin:auto;padding:18px}
+h2{font-size:20px;color:var(--ice)}
+.panel{
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:16px;
+ padding:18px;
+ margin:18px 0
 }
-
-h1 {
-  margin:0;
-  color:var(--ice);
+.markets,.toolbar,.stats{
+ display:flex;
+ flex-wrap:wrap;
+ gap:10px
 }
-
-header p,.note {
-  color:var(--muted);
+.toolbar{
+ align-items:center;
+ justify-content:space-between
 }
-
-main {
-  max-width:1450px;
-  margin:auto;
-  padding:18px;
+button{
+ background:#132c4d;
+ color:white;
+ border:1px solid var(--line);
+ border-radius:9px;
+ padding:11px 15px;
+ font:inherit;
+ cursor:pointer
 }
-
-h2 {
-  font-size:20px;
-  color:var(--ice);
+button:hover,button.active{
+ background:#168cff
 }
-
-.panel {
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:18px;
-  margin:18px 0;
+button:disabled{
+ opacity:.5;
+ cursor:wait
 }
-
-.markets,.toolbar,.stats {
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
+.stat{
+ background:#0b1b31;
+ border:1px solid var(--line);
+ border-radius:10px;
+ padding:12px;
+ min-width:125px;
+ flex:1
 }
-
-.toolbar {
-  align-items:center;
-  justify-content:space-between;
+.stat strong{
+ display:block;
+ margin-top:8px;
+ direction:ltr;
+ text-align:right;
+ font-size:17px
 }
-
-button,.market-link {
-  display:inline-block;
-  background:#132c4d;
-  color:white;
-  border:1px solid var(--line);
-  border-radius:9px;
-  padding:11px 15px;
-  font:inherit;
-  cursor:pointer;
-  text-decoration:none;
+.chart{
+ width:100%;
+ height:610px;
+ direction:ltr;
+ position:relative
 }
-
-button.active,
-button:hover,
-.market-link:hover {
-  background:var(--blue);
+.note{font-size:13px;line-height:1.9}
+.status{
+ margin:14px 0;
+ color:var(--muted);
+ line-height:1.9;
+ min-height:24px
 }
-
-.stat {
-  background:#0b1b31;
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:12px;
-  min-width:125px;
-  flex:1;
+.buy{color:var(--green)}
+.sell{color:var(--red)}
+.wait{color:var(--gold)}
+.legend{
+ display:flex;
+ flex-wrap:wrap;
+ gap:15px;
+ color:var(--muted);
+ font-size:13px;
+ margin:10px 0
 }
-
-.stat strong {
-  display:block;
-  margin-top:7px;
-  direction:ltr;
-  text-align:right;
-  font-size:17px;
+.legend b{font-weight:normal}
+.legend .green{color:var(--green)}
+.legend .red{color:var(--red)}
+.legend .blue{color:var(--ice)}
+.legend .gold{color:var(--gold)}
+a{color:var(--ice)}
+footer{
+ text-align:center;
+ color:var(--muted);
+ border-top:1px solid var(--line);
+ padding:25px
 }
-
-.chart {
-  height:560px;
-  direction:ltr;
-  position:relative;
-  overflow:hidden;
-}
-
-.note {
-  font-size:13px;
-  line-height:1.9;
-}
-
-.buy {
-  color:var(--green);
-}
-
-.sell {
-  color:var(--red);
-}
-
-.status {
-  margin:12px 0;
-  color:var(--muted);
-  min-height:22px;
-  line-height:1.9;
-}
-
-.hidden {
-  display:none!important;
-}
-
-.signal-header {
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  align-items:center;
-  margin:14px 0;
-}
-
-.signal-tag {
-  background:#102d43;
-  color:var(--ice);
-  border:1px solid var(--line);
-  border-radius:8px;
-  padding:9px 12px;
-  font-size:13px;
-}
-
-.signal-tag.green {
-  color:var(--green);
-}
-
-.signal-tag.red {
-  color:var(--red);
-}
-
-.signal-tag.gold {
-  color:var(--gold);
-}
-
-.legend {
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  padding:10px 0;
-  font-size:13px;
-  color:var(--muted);
-}
-
-.legend span::before {
-  content:"●";
-  margin-left:5px;
-}
-
-.legend .fast::before {
-  color:var(--green);
-}
-
-.legend .slow::before {
-  color:var(--red);
-}
-
-.legend .entry::before {
-  color:var(--ice);
-}
-
-.legend .target::before {
-  color:var(--green);
-}
-
-.legend .stop::before {
-  color:var(--red);
-}
-
-a {
-  color:var(--ice);
-}
-
-footer {
-  text-align:center;
-  color:var(--muted);
-  padding:25px;
-  border-top:1px solid var(--line);
-}
-
-@media(max-width:650px) {
-  main {
-    padding:10px;
-  }
-
-  .panel {
-    padding:12px;
-  }
-
-  .chart {
-    height:430px;
-  }
-
-  .stat {
-    min-width:105px;
-  }
+@media(max-width:650px){
+ main{padding:10px}
+ .panel{padding:12px}
+ .chart{height:440px}
+ .stat{min-width:105px}
 }
 </style>
 </head>
 
 <body>
-
 <header>
-  <h1>SULTAN GOLD PRO</h1>
-  <p>منصة الأسواق المالية والتحليل الفني الذكي</p>
+ <h1>SULTAN GOLD PRO</h1>
+ <p>منصة الأسواق المالية والتحليل الفني الذكي</p>
 </header>
 
 <main>
-
 <a href="index.html">← العودة للرئيسية</a>
 
 <section class="panel">
+ <h2>الأسواق المالية</h2>
 
-  <h2>اختر السوق المالي</h2>
+ <div class="markets">
+  <button class="active"
+   data-market="gold">🥇 الذهب</button>
 
-  <div class="markets">
+  <button data-market="silver">🥈 الفضة</button>
 
-    <button
-      class="active"
-      data-symbol="XAU/USD"
-      data-tv="OANDA:XAUUSD"
-      data-market="gold">
-      🥇 الذهب
-    </button>
+  <button data-market="forex">💱 الفوركس EUR/USD</button>
 
-    <button
-      data-symbol="XAG/USD"
-      data-tv="OANDA:XAGUSD"
-      data-market="silver">
-      🥈 الفضة
-    </button>
+  <button data-market="us">🇺🇸 الأسهم الأمريكية</button>
 
-    <button
-      data-symbol="EUR/USD"
-      data-tv="OANDA:EURUSD">
-      💱 الفوركس
-    </button>
+  <button data-market="saudi">🇸🇦 الأسهم السعودية</button>
 
-    <button
-      data-symbol="AAPL"
-      data-tv="NASDAQ:AAPL">
-      🇺🇸 الأسهم الأمريكية
-    </button>
+  <button data-market="crypto">₿ العملات الرقمية</button>
 
-    <a
-      class="market-link"
-      href="https://www.tradingview.com/chart/?symbol=TADAWUL%3A1120"
-      target="_blank"
-      rel="noopener noreferrer">
-      🇸🇦 الأسهم السعودية ↗️
-    </a>
+  <button data-market="nasdaq">📊 ناسداك QQQ</button>
 
-    <button
-      data-symbol="BTC/USDT"
-      data-tv="BINANCE:BTCUSDT">
-      ₿ العملات الرقمية
-    </button>
+  <button data-market="oil">🛢️ النفط</button>
+ </div>
 
-    <button
-      data-symbol="QQQ"
-      data-tv="NASDAQ:QQQ">
-      📊 ناسداك QQQ
-    </button>
-
-    <button
-      data-symbol="WTI"
-      data-tv="TVC:USOIL">
-      🛢️ النفط
-    </button>
-
-  </div>
-
-  <p class="note">
-    جميع الأسواق تعرض شارت TradingView.
-    محرك إشارات SULTAN GOLD متصل حاليًا
-    ببيانات الذهب والفضة.
-  </p>
-
+ <p class="note">
+  جميع الأسواق تستخدم شارت SULTAN GOLD الخاص.
+  عرض البيانات يعتمد على تغطية Twelve Data
+  وصلاحيات اشتراكك.
+ </p>
 </section>
 
 <section class="panel">
 
-  <div class="toolbar">
+ <div class="toolbar">
+  <h2 id="chartTitle">
+   SULTAN GOLD | الذهب | M15
+  </h2>
 
-    <h2 id="chartTitle">
-      SULTAN GOLD | الذهب | 15 دقيقة
-    </h2>
+  <button id="refresh" type="button">
+   ↻ تحديث السوق
+  </button>
+ </div>
 
-    <button id="refresh" type="button">
-      ↻ تحديث الشارت
-    </button>
+ <div id="status" class="status" role="status">
+  جاري تحميل البيانات...
+ </div>
 
-  </div>
+ <div id="mainChart" class="chart"></div>
 
-  <div
-    id="status"
-    class="status"
-    role="status">
-    جاري تحميل الشارت...
-  </div>
+ <div class="legend">
+  <b class="green">● EMA 9</b>
+  <b class="red">● EMA 21</b>
+  <b class="blue">● ENTRY</b>
+  <b class="green">● TP1 / TP2 / TP3</b>
+  <b class="red">● SL</b>
+ </div>
 
-  <div id="tvChart" class="chart"></div>
-
-  <p class="note">
-    الشارت الأساسي من TradingView.
-    المؤشر المخصص يظهر في القسم التالي،
-    لأن TradingView لا يسمح بحقنه داخل
-    الشارت المضمّن.
-  </p>
-
-</section>
-
-<section class="panel" id="signalsPanel">
-
-  <div class="toolbar">
-
-    <h2 id="signalTitle">
-      SULTAN GOLD PRO | مؤشر الإشارات
-    </h2>
-
-    <button id="retrySignals" type="button">
-      ↻ تحديث الإشارات
-    </button>
-
-  </div>
-
-  <div class="signal-header">
-
-    <span class="signal-tag">
-      الاتجاه H1
-    </span>
-
-    <span class="signal-tag">
-      الدخول M15
-    </span>
-
-    <span class="signal-tag green">
-      EMA 9
-    </span>
-
-    <span class="signal-tag red">
-      EMA 21
-    </span>
-
-    <span class="signal-tag gold">
-      EMA 50 | H1
-    </span>
-
-  </div>
-
-  <div
-    id="signalStatus"
-    class="status"
-    role="status">
-    جاري تحميل بيانات المؤشر...
-  </div>
-
-  <div id="signalChart" class="chart hidden"></div>
-
-  <div class="legend">
-    <span class="fast">EMA 9</span>
-    <span class="slow">EMA 21</span>
-    <span class="entry">ENTRY</span>
-    <span class="target">TP1 / TP2 / TP3</span>
-    <span class="stop">SL</span>
-  </div>
-
-  <div class="stats">
-
-    <div class="stat">
-      آخر إغلاق مكتمل
-      <strong id="price">—</strong>
-    </div>
-
-    <div class="stat">
-      اتجاه H1
-      <strong id="h1Trend">—</strong>
-    </div>
-
-    <div class="stat">
-      الإشارة الأخيرة
-      <strong id="direction">—</strong>
-    </div>
-
-    <div class="stat">
-      ENTRY
-      <strong id="entry">—</strong>
-    </div>
-
-    <div class="stat">
-      TP1
-      <strong id="tp1">—</strong>
-    </div>
-
-    <div class="stat">
-      TP2
-      <strong id="tp2">—</strong>
-    </div>
-
-    <div class="stat">
-      TP3
-      <strong id="tp3">—</strong>
-    </div>
-
-    <div class="stat">
-      SL
-      <strong id="sl">—</strong>
-    </div>
-
-    <div class="stat">
-      وقت الإشارة
-      <strong id="signalTime">—</strong>
-    </div>
-
-  </div>
-
-  <p class="note" id="signalNote">
-    يعتمد النظام على تقاطع EMA 9 وEMA 21
-    على M15، مع فلتر اتجاه EMA 50
-    من آخر شمعة ساعة مكتملة.
-    الوقف التجريبي 0.3% والأهداف 1R و2R و3R.
-    إشارات المؤشر تعليمية وليست توصيات مالية.
-  </p>
-
+ <p class="note">
+  إشارات على إغلاق شموع M15 المكتملة،
+  مع تأكيد الاتجاه بفريم H1.
+  خطوط الأهداف تخص آخر إشارة تاريخية.
+ </p>
 </section>
 
 <section class="panel">
 
-  <h2>الروبوتات والذكاء الاصطناعي</h2>
+ <h2>SULTAN GOLD PRO | لوحة الإشارات</h2>
 
-  <p class="note">
-    قيد التطوير والاختبار.
-  </p>
+ <div class="stats">
+
+  <div class="stat">
+   السوق
+   <strong id="marketName">—</strong>
+  </div>
+
+  <div class="stat">
+   آخر إغلاق
+   <strong id="price">—</strong>
+  </div>
+
+  <div class="stat">
+   اتجاه H1
+   <strong id="h1Trend">—</strong>
+  </div>
+
+  <div class="stat">
+   الإشارة الأخيرة
+   <strong id="direction">—</strong>
+  </div>
+
+  <div class="stat">
+   ENTRY
+   <strong id="entry">—</strong>
+  </div>
+
+  <div class="stat">
+   TP1
+   <strong id="tp1">—</strong>
+  </div>
+
+  <div class="stat">
+   TP2
+   <strong id="tp2">—</strong>
+  </div>
+
+  <div class="stat">
+   TP3
+   <strong id="tp3">—</strong>
+  </div>
+
+  <div class="stat">
+   SL
+   <strong id="sl">—</strong>
+  </div>
+
+  <div class="stat">
+   وقت الإشارة
+   <strong id="signalTime">—</strong>
+  </div>
+
+ </div>
+
+ <p id="signalInfo" class="note">
+  بانتظار البيانات.
+ </p>
+
+ <p class="note">
+  المنهج التجريبي: تقاطع EMA9 وEMA21
+  على M15 مع اتجاه EMA50 على H1.
+  الوقف 0.3% من الدخول والأهداف 1R و2R و3R.
+  هذه القواعد لم تُثبت ربحيتها باختبار خلفي.
+ </p>
 
 </section>
 
+<section class="panel">
+ <h2>الروبوتات والذكاء الاصطناعي</h2>
+ <p class="note">قيد التطوير والاختبار.</p>
+</section>
 </main>
 
 <footer>
-
-  <strong>SULTAN GOLD PRO</strong>
-
-  <p>
-    سلطان الزهراني | اصنع لنفسك مدرسة
-  </p>
-
-  <p>
-    محتوى تعليمي وليس توصية مالية.
-  </p>
-
-  <a
-    href="https://t.me/sultanGold0"
-    target="_blank"
-    rel="noopener noreferrer">
-    قناة SULTAN GOLD على تيليجرام
-  </a>
-
+ <strong>SULTAN GOLD PRO</strong>
+ <p>سلطان الزهراني | اصنع لنفسك مدرسة</p>
+ <p>محتوى تعليمي وليس توصية مالية.</p>
+ <a href="https://t.me/sultanGold0"
+  target="_blank" rel="noopener noreferrer">
+  قناة SULTAN GOLD على تيليجرام
+ </a>
 </footer>
 
 <script src="https://unpkg.com/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js"></script>
@@ -500,1014 +289,517 @@ footer {
 <script>
 "use strict";
 
-// ====================================
-// SULTAN GOLD PRO
-// MARKET + SIGNAL ENGINE
-// ====================================
+const $=id=>document.getElementById(id);
 
-const $ = id => document.getElementById(id);
-
-const buttons = [
-  ...document.querySelectorAll("button[data-tv]")
-];
-
-const COLORS = {
-  buy:"#27d9a1",
-  sell:"#ff657a",
-  ice:"#83d7ff",
-  gold:"#e8c66a"
+const MARKETS={
+ gold:{name:"الذهب",digits:2},
+ silver:{name:"الفضة",digits:3},
+ forex:{name:"EUR/USD",digits:5},
+ us:{name:"Apple AAPL",digits:2},
+ saudi:{name:"مصرف الراجحي 1120",digits:2},
+ crypto:{name:"Bitcoin BTC/USD",digits:2},
+ nasdaq:{name:"Nasdaq 100 ETF - QQQ",digits:2},
+ oil:{name:"النفط WTI",digits:2}
 };
 
-let activeButton = buttons[0];
+const C={
+ green:"#27d9a1",
+ red:"#ff657a",
+ ice:"#83d7ff",
+ gold:"#e8c66a"
+};
 
-let signalChart = null;
-let resizeObserver = null;
-let requestNumber = 0;
+const buttons=[
+ ...document.querySelectorAll("button[data-market]")
+];
 
-// ====================================
-// PRICE FORMATTING
-// ====================================
+let selectedMarket="gold";
+let chart=null;
+let resizeObserver=null;
+let requestNumber=0;
 
-function formatPrice(number) {
-
-  if (!Number.isFinite(number)) {
-    return "—";
-  }
-
-  const symbol = activeButton.dataset.symbol;
-
-  let decimals = 2;
-
-  if (symbol === "EUR/USD") {
-    decimals = 5;
-  }
-
-  if (symbol === "XAG/USD") {
-    decimals = 3;
-  }
-
-  return number.toFixed(decimals);
-
+function fmt(number){
+ if(!Number.isFinite(number))return "—";
+ return number.toFixed(MARKETS[selectedMarket].digits);
 }
 
-// ====================================
-// UI RESET
-// ====================================
-
-function resetValues() {
-
-  const fields = [
-    "price",
-    "h1Trend",
-    "direction",
-    "entry",
-    "tp1",
-    "tp2",
-    "tp3",
-    "sl",
-    "signalTime"
-  ];
-
-  for (const id of fields) {
-    $(id).textContent = "—";
-    $(id).className = "";
-  }
-
+function setStatus(message){
+ $("status").textContent=message;
 }
 
-function clearSignalChart() {
-
-  if (resizeObserver) {
-    resizeObserver.disconnect();
-    resizeObserver = null;
-  }
-
-  if (signalChart) {
-    signalChart.remove();
-    signalChart = null;
-  }
-
-  $("signalChart").replaceChildren();
-  $("signalChart").classList.add("hidden");
-
+function resetPanel(){
+ for(const id of [
+  "price","h1Trend","direction",
+  "entry","tp1","tp2","tp3",
+  "sl","signalTime"
+ ]){
+  $(id).textContent="—";
+  $(id).className="";
+ }
+ $("marketName").textContent=MARKETS[selectedMarket].name;
+ $("signalInfo").textContent="بانتظار بيانات الإشارات.";
 }
 
-// ====================================
-// TRADINGVIEW MARKET CHART
-// ====================================
-
-function loadTradingView(button) {
-
-  activeButton = button;
-
-  buttons.forEach(b => {
-    b.classList.toggle("active",b === button);
-  });
-
-  const symbol = button.dataset.symbol;
-  const tv = button.dataset.tv;
-
-  $("chartTitle").textContent =
-    "SULTAN GOLD | " + symbol + " | M15";
-
-  $("status").textContent =
-    "جاري تحميل شارت " + symbol;
-
-  const host = $("tvChart");
-  host.replaceChildren();
-
-  const container = document.createElement("div");
-
-  container.className =
-    "tradingview-widget-container";
-
-  container.style.cssText =
-    "height:100%;width:100%";
-
-  const inner = document.createElement("div");
-
-  inner.className =
-    "tradingview-widget-container__widget";
-
-  inner.style.cssText =
-    "height:100%;width:100%";
-
-  container.appendChild(inner);
-
-  const script = document.createElement("script");
-
-  script.async = true;
-
-  script.src =
-    "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
-
-  script.textContent = JSON.stringify({
-    autosize:true,
-    symbol:tv,
-    interval:"15",
-    timezone:"Asia/Riyadh",
-    theme:"dark",
-    style:"1",
-    locale:"ar",
-    allow_symbol_change:true,
-    hide_side_toolbar:false,
-    hide_top_toolbar:false,
-    save_image:true,
-    support_host:"https://www.tradingview.com"
-  });
-
-  container.appendChild(script);
-  host.appendChild(container);
-
-  $("status").textContent =
-    "السوق المحدد: " + symbol;
-
-  loadSignals(button.dataset.market);
-
+function clearChart(){
+ if(resizeObserver){
+  resizeObserver.disconnect();
+  resizeObserver=null;
+ }
+ if(chart){
+  chart.remove();
+  chart=null;
+ }
+ $("mainChart").replaceChildren();
 }
 
-// ====================================
-// EMA CALCULATION
-// ====================================
+function ema(values,length){
+ const result=Array(values.length).fill(null);
+ if(values.length<length)return result;
 
-function ema(values,period) {
+ let sum=0;
+ for(let i=0;i<length;i++)sum+=values[i];
 
-  const result =
-    Array(values.length).fill(null);
+ result[length-1]=sum/length;
+ const multiplier=2/(length+1);
 
-  if (values.length < period) {
-    return result;
-  }
+ for(let i=length;i<values.length;i++){
+  result[i]=
+   values[i]*multiplier+
+   result[i-1]*(1-multiplier);
+ }
 
-  let total = 0;
-
-  for (let i=0;i<period;i++) {
-    total += values[i];
-  }
-
-  result[period-1] = total/period;
-
-  const multiplier = 2/(period+1);
-
-  for (
-    let i=period;
-    i<values.length;
-    i++
-  ) {
-
-    result[i] =
-      values[i]*multiplier +
-      result[i-1]*(1-multiplier);
-
-  }
-
-  return result;
-
+ return result;
 }
 
-// ====================================
-// DATE PARSING
-// ====================================
+function parseTime(raw){
+ if(typeof raw==="number"){
+  return raw>1e12?Math.floor(raw/1000):raw;
+ }
 
-function toSeconds(raw) {
+ if(typeof raw!=="string")return NaN;
 
-  if (typeof raw === "number") {
-    return raw > 1e12
-      ? Math.floor(raw/1000)
-      : raw;
-  }
+ const iso=raw.trim().replace(" ","T");
+ const zoned=/[zZ]$|[+-]\d{2}:\d{2}$/.test(iso);
 
-  if (typeof raw !== "string") {
-    return NaN;
-  }
-
-  const value =
-    raw.trim().replace(" ","T");
-
-  const hasZone =
-    /[zZ]$|[+-]\d{2}:\d{2}$/.test(value);
-
-  return Math.floor(
-    Date.parse(
-      value+(hasZone?"":"Z")
-    )/1000
-  );
-
+ return Math.floor(
+  Date.parse(iso+(zoned?"":"Z"))/1000
+ );
 }
 
-// ====================================
-// CANDLE PARSING
-// ====================================
-
-function parseCandles(values) {
-
-  const unique = new Map();
-
-  for (const row of values) {
-
-    const candle = {
-      time:toSeconds(
-        row.datetime ?? row.time
-      ),
-      open:Number(row.open),
-      high:Number(row.high),
-      low:Number(row.low),
-      close:Number(row.close)
-    };
-
-    const valid =
-      Number.isFinite(candle.time) &&
-      [
-        candle.open,
-        candle.high,
-        candle.low,
-        candle.close
-      ].every(Number.isFinite) &&
-      candle.high >= Math.max(
-        candle.open,
-        candle.close
-      ) &&
-      candle.low <= Math.min(
-        candle.open,
-        candle.close
-      );
-
-    if (valid) {
-      unique.set(
-        candle.time,
-        candle
-      );
-    }
-
-  }
-
-  return [...unique.values()]
-    .sort((a,b)=>a.time-b.time);
-
-}
-
-// ====================================
-// BUILD COMPLETED H1 CANDLES
-// ====================================
-
-function buildH1(candles) {
-
-  const groups = new Map();
-
-  for (const candle of candles) {
-
-    const hour =
-      Math.floor(candle.time/3600)*3600;
-
-    let group = groups.get(hour);
-
-    if (!group) {
-
-      group = {
-        time:hour,
-        open:candle.open,
-        high:candle.high,
-        low:candle.low,
-        close:candle.close,
-        times:new Set()
-      };
-
-      groups.set(hour,group);
-
-    }
-
-    group.high = Math.max(
-      group.high,
-      candle.high
-    );
-
-    group.low = Math.min(
-      group.low,
-      candle.low
-    );
-
-    group.close = candle.close;
-
-    group.times.add(candle.time);
-
-  }
-
-  return [...groups.values()]
-    .filter(group => {
-
-      return [
-        0,900,1800,2700
-      ].every(offset => {
-
-        return group.times.has(
-          group.time+offset
-        );
-
-      });
-
-    })
-    .sort((a,b)=>a.time-b.time);
-
-}
-
-// ====================================
-// SULTAN SIGNAL ENGINE
-// ====================================
-
-function calculateSignals(candles) {
-
-  const closes =
-    candles.map(c=>c.close);
-
-  const fast = ema(closes,9);
-  const slow = ema(closes,21);
-
-  const hours = buildH1(candles);
-
-  const hourCloses =
-    hours.map(c=>c.close);
-
-  const trendEMA =
-    ema(hourCloses,50);
-
-  const signals = [];
-
-  let currentTrend = "WAIT";
-
-  // Latest confirmed H1 trend
-  const latestHourIndex = hours.length-1;
-
-  if (
-    latestHourIndex>=49 &&
-    trendEMA[latestHourIndex]!==null
-  ) {
-
-    const lastHour =
-      hours[latestHourIndex];
-
-    const lastEMA =
-      trendEMA[latestHourIndex];
-
-    if (lastHour.close>lastEMA) {
-      currentTrend = "BUY";
-    } else if (lastHour.close<lastEMA) {
-      currentTrend = "SELL";
-    }
-
-  }
-
-  // Entries on completed M15 candles
-  for (
-    let i=21;
-    i<candles.length;
-    i++
-  ) {
-
-    const candle = candles[i];
-    const completedAt =
-      candle.time+900;
-
-    let hourIndex =
-      hours.length-1;
-
-    while (
-      hourIndex>=0 &&
-      hours[hourIndex].time+3600>
-      completedAt
-    ) {
-      hourIndex--;
-    }
-
-    if (hourIndex<49) {
-      continue;
-    }
-
-    const h1EMA =
-      trendEMA[hourIndex];
-
-    if (h1EMA===null) {
-      continue;
-    }
-
-    const h1Close =
-      hours[hourIndex].close;
-
-    const h1Buy =
-      h1Close>h1EMA;
-
-    const h1Sell =
-      h1Close<h1EMA;
-
-    const crossBuy =
-      fast[i-1]<=slow[i-1] &&
-      fast[i]>slow[i];
-
-    const crossSell =
-      fast[i-1]>=slow[i-1] &&
-      fast[i]<slow[i];
-
-    const buy =
-      crossBuy && h1Buy;
-
-    const sell =
-      crossSell && h1Sell;
-
-    if (!buy&&!sell) {
-      continue;
-    }
-
-    const direction =
-      buy?"BUY":"SELL";
-
-    const side =
-      buy?1:-1;
-
-    const entry =
-      candle.close;
-
-    const risk =
-      entry*0.003;
-
-    signals.push({
-      direction,
-      time:candle.time,
-      completedAt,
-      entry,
-      sl:entry-side*risk,
-      tp1:entry+side*risk,
-      tp2:entry+side*risk*2,
-      tp3:entry+side*risk*3
-    });
-
-  }
-
-  return {
-    fast,
-    slow,
-    hours,
-    signals,
-    currentTrend
+function parseCandles(values){
+ const unique=new Map();
+
+ for(const item of values){
+  const c={
+   time:parseTime(item.datetime??item.time),
+   open:Number(item.open),
+   high:Number(item.high),
+   low:Number(item.low),
+   close:Number(item.close)
   };
 
+  if(
+   Number.isFinite(c.time)&&
+   [c.open,c.high,c.low,c.close].every(Number.isFinite)&&
+   c.high>=Math.max(c.open,c.close)&&
+   c.low<=Math.min(c.open,c.close)
+  ){
+   unique.set(c.time,c);
+  }
+ }
+
+ return [...unique.values()]
+  .sort((a,b)=>a.time-b.time);
 }
 
-// ====================================
-// DRAW SIGNAL MARKERS
-// ====================================
+function buildHours(candles){
+ const groups=new Map();
 
-function createMarkers(signals) {
+ for(const c of candles){
+  const hour=Math.floor(c.time/3600)*3600;
 
-  // Last eight signals only
-  // Avoid overcrowding the chart
+  let h=groups.get(hour);
 
-  return signals
-    .slice(-8)
-    .map(signal => {
+  if(!h){
+   h={
+    time:hour,
+    open:c.open,
+    high:c.high,
+    low:c.low,
+    close:c.close,
+    slots:new Set()
+   };
+   groups.set(hour,h);
+  }
 
-      const buy =
-        signal.direction==="BUY";
+  h.high=Math.max(h.high,c.high);
+  h.low=Math.min(h.low,c.low);
+  h.close=c.close;
+  h.slots.add(c.time);
+ }
 
-      return {
-        time:signal.time,
-        position:buy
-          ?"belowBar"
-          :"aboveBar",
-        color:buy
-          ?COLORS.buy
-          :COLORS.sell,
-        shape:buy
-          ?"arrowUp"
-          :"arrowDown",
-        text:signal.direction
-      };
-
-    });
-
+ return [...groups.values()]
+  .filter(h=>
+   [0,900,1800,2700]
+    .every(offset=>h.slots.has(h.time+offset))
+  )
+  .sort((a,b)=>a.time-b.time);
 }
 
-// ====================================
-// DRAW LEVELS
-// ====================================
+function calculate(candles){
+ const closes=candles.map(c=>c.close);
 
-function drawPriceLevels(series,signal) {
+ const fast=ema(closes,9);
+ const slow=ema(closes,21);
 
-  if (!signal) {
-    return;
+ const hours=buildHours(candles);
+ const h1EMA=ema(hours.map(h=>h.close),50);
+
+ const signals=[];
+
+ let trend="WAIT";
+
+ if(hours.length>=50){
+  const last=hours.length-1;
+
+  if(hours[last].close>h1EMA[last]){
+   trend="BUY";
+  }else if(hours[last].close<h1EMA[last]){
+   trend="SELL";
   }
+ }
 
-  const levels = [
-    ["ENTRY",signal.entry,COLORS.ice],
-    ["TP1",signal.tp1,COLORS.buy],
-    ["TP2",signal.tp2,COLORS.buy],
-    ["TP3",signal.tp3,COLORS.buy],
-    ["SL",signal.sl,COLORS.sell]
-  ];
+ for(let i=21;i<candles.length;i++){
+  const c=candles[i];
+  const closedAt=c.time+900;
 
-  for (
-    const [title,price,color]
-    of levels
-  ) {
+  let j=hours.length-1;
 
-    series.createPriceLine({
-      price,
-      color,
-      lineWidth:2,
-      lineStyle:
-        LightweightCharts.LineStyle.Dashed,
-      axisLabelVisible:true,
-      title
-    });
+  while(
+   j>=0 &&
+   hours[j].time+3600>closedAt
+  )j--;
 
-  }
+  if(j<49||h1EMA[j]===null)continue;
 
+  const crossBuy=
+   fast[i-1]<=slow[i-1] &&
+   fast[i]>slow[i];
+
+  const crossSell=
+   fast[i-1]>=slow[i-1] &&
+   fast[i]<slow[i];
+
+  const buy=
+   crossBuy &&
+   hours[j].close>h1EMA[j];
+
+  const sell=
+   crossSell &&
+   hours[j].close<h1EMA[j];
+
+  if(!buy&&!sell)continue;
+
+  const side=buy?1:-1;
+  const entry=c.close;
+  const risk=entry*0.003;
+
+  signals.push({
+   direction:buy?"BUY":"SELL",
+   time:c.time,
+   closedAt,
+   entry,
+   sl:entry-side*risk,
+   tp1:entry+side*risk,
+   tp2:entry+side*risk*2,
+   tp3:entry+side*risk*3
+  });
+ }
+
+ return {fast,slow,hours,signals,trend};
 }
 
-// ====================================
-// SIGNAL INFORMATION PANEL
-// ====================================
+function drawLevels(series,s){
+ if(!s)return;
 
-function updateSignalInfo(
-  result,
-  candles
-) {
+ for(const [title,price,color] of [
+  ["ENTRY",s.entry,C.ice],
+  ["TP1",s.tp1,C.green],
+  ["TP2",s.tp2,C.green],
+  ["TP3",s.tp3,C.green],
+  ["SL",s.sl,C.red]
+ ]){
+  series.createPriceLine({
+   price,
+   color,
+   lineWidth:2,
+   lineStyle:LightweightCharts.LineStyle.Dashed,
+   axisLabelVisible:true,
+   title
+  });
+ }
+}
 
-  const lastCandle =
-    candles[candles.length-1];
+function updatePanel(result,candles){
+ $("price").textContent=
+  fmt(candles[candles.length-1].close);
 
-  $("price").textContent =
-    formatPrice(lastCandle.close);
+ const trend=result.trend;
 
-  const trend =
-    result.currentTrend;
+ $("h1Trend").textContent=
+  trend==="BUY"?"صاعد":
+  trend==="SELL"?"هابط":"غير محدد";
 
-  $("h1Trend").textContent =
-    trend==="BUY"
-      ?"صاعد"
-      :trend==="SELL"
-      ?"هابط"
-      :"غير محدد";
+ $("h1Trend").className=
+  trend==="BUY"?"buy":
+  trend==="SELL"?"sell":"wait";
 
-  $("h1Trend").className =
-    trend==="BUY"
-      ?"buy"
-      :trend==="SELL"
-      ?"sell"
-      :"";
+ const latest=result.signals.at(-1);
 
-  const latest =
-    result.signals.at(-1);
+ if(!latest){
+  $("direction").textContent="WAIT";
+  $("direction").className="wait";
 
-  if (!latest) {
+  $("signalInfo").textContent=
+   "لم تتحقق شروط الإشارة في البيانات المتاحة.";
+  return;
+ }
 
-    $("direction").textContent =
-      "لا توجد إشارة مؤكدة";
+ $("direction").textContent=latest.direction;
+ $("direction").className=
+  latest.direction==="BUY"?"buy":"sell";
 
-    return;
+ for(const key of [
+  "entry","tp1","tp2","tp3","sl"
+ ]){
+  $(key).textContent=fmt(latest[key]);
+ }
 
+ $("signalTime").textContent=
+  new Date(latest.closedAt*1000)
+   .toLocaleString("ar-SA",{
+    timeZone:"Asia/Riyadh"
+   });
+
+ const ageMinutes=
+  (Date.now()/1000-latest.closedAt)/60;
+
+ $("signalInfo").textContent=
+  ageMinutes>60
+   ?"آخر إشارة تاريخية؛ ليست أمر دخول جديدًا."
+   :"آخر إشارة مؤكدة حديثة، وتحتاج مراجعة إدارة المخاطر.";
+}
+
+async function loadMarket(market){
+ selectedMarket=market;
+
+ const requestId=++requestNumber;
+
+ buttons.forEach(b=>
+  b.classList.toggle(
+   "active",
+   b.dataset.market===market
+  )
+ );
+
+ clearChart();
+ resetPanel();
+
+ $("chartTitle").textContent=
+  "SULTAN GOLD | "+
+  MARKETS[market].name+
+  " | M15";
+
+ setStatus("جاري تحميل "+MARKETS[market].name+"...");
+
+ try{
+  if(!window.LightweightCharts){
+   throw Error("تعذر تحميل مكتبة الشارت");
   }
 
-  $("direction").textContent =
-    latest.direction;
+  const url=
+   "/.netlify/functions/prices"+
+   "?type=candles&market="+
+   encodeURIComponent(market);
 
-  $("direction").className =
-    latest.direction==="BUY"
-      ?"buy"
-      :"sell";
+  const response=await fetch(url,{
+   cache:"no-store"
+  });
 
-  for (
-    const field of [
-      "entry",
-      "tp1",
-      "tp2",
-      "tp3",
-      "sl"
+  if(requestId!==requestNumber)return;
+
+  let data;
+
+  try{
+   data=await response.json();
+  }catch{
+   throw Error("خدمة الأسعار لم ترجع بيانات JSON صالحة");
+  }
+
+  if(!response.ok||data.error){
+   throw Error(
+    String(data.message||data.error||"خطأ في مصدر الأسعار")
+   );
+  }
+
+  if(!Array.isArray(data.values)){
+   throw Error("لا توجد بيانات شموع لهذا السوق");
+  }
+
+  const now=Math.floor(Date.now()/1000);
+
+  const candles=parseCandles(data.values)
+   .filter(c=>c.time+900<=now);
+
+  if(candles.length<30){
+   throw Error("الشموع المكتملة غير كافية لرسم السوق");
+  }
+
+  const result=calculate(candles);
+
+  if(requestId!==requestNumber)return;
+
+  const host=$("mainChart");
+
+  chart=LightweightCharts.createChart(host,{
+   width:host.clientWidth||800,
+   height:host.clientHeight||610,
+   layout:{
+    background:{
+     type:"solid",
+     color:"#101f38"
+    },
+    textColor:"#b9d5eb"
+   },
+   grid:{
+    vertLines:{color:"#1d3451"},
+    horzLines:{color:"#1d3451"}
+   },
+   timeScale:{
+    timeVisible:true,
+    secondsVisible:false
+   },
+   rightPriceScale:{
+    borderColor:"#294263"
+   },
+   localization:{
+    priceFormatter:price=>fmt(price)
+   }
+  });
+
+  const cs=chart.addCandlestickSeries({
+   upColor:C.green,
+   downColor:C.red,
+   borderVisible:false,
+   wickUpColor:C.green,
+   wickDownColor:C.red
+  });
+
+  cs.setData(candles);
+
+  const markers=result.signals
+   .slice(-10)
+   .map(s=>({
+    time:s.time,
+    position:s.direction==="BUY"
+     ?"belowBar":"aboveBar",
+    color:s.direction==="BUY"
+     ?C.green:C.red,
+    shape:s.direction==="BUY"
+     ?"arrowUp":"arrowDown",
+    text:s.direction
+   }));
+
+  cs.setMarkers(markers);
+
+  for(const [values,color] of [
+   [result.fast,C.green],
+   [result.slow,C.red]
+  ]){
+   const line=chart.addLineSeries({
+    color,
+    lineWidth:2,
+    priceLineVisible:false,
+    lastValueVisible:false
+   });
+
+   line.setData(candles.flatMap((c,i)=>
+    values[i]===null?[]:[
+     {time:c.time,value:values[i]}
     ]
-  ) {
-
-    $(field).textContent =
-      formatPrice(latest[field]);
-
+   ));
   }
 
-  $("signalTime").textContent =
-    new Date(
-      latest.completedAt*1000
-    ).toLocaleString("ar-SA",{
-      timeZone:"Asia/Riyadh"
-    });
+  const latest=result.signals.at(-1);
 
-}
+  drawLevels(cs,latest);
+  updatePanel(result,candles);
 
-// ====================================
-// LOAD SULTAN SIGNAL CHART
-// ====================================
+  chart.timeScale().setVisibleLogicalRange({
+   from:Math.max(0,candles.length-90),
+   to:candles.length+8
+  });
 
-async function loadSignals(market) {
-
-  const id = ++requestNumber;
-
-  clearSignalChart();
-  resetValues();
-
-  if (!market) {
-
-    $("signalsPanel")
-      .classList.add("hidden");
-
-    return;
-
+  if(window.ResizeObserver){
+   resizeObserver=new ResizeObserver(()=>{
+    if(chart){
+     chart.applyOptions({
+      width:host.clientWidth,
+      height:host.clientHeight
+     });
+    }
+   });
+   resizeObserver.observe(host);
   }
 
-  $("signalsPanel")
-    .classList.remove("hidden");
-
-  const name =
-    market==="gold"
-      ?"الذهب"
-      :"الفضة";
-
-  $("signalTitle").textContent =
-    "SULTAN GOLD PRO | "+name+" | M15";
-
-  $("signalStatus").textContent =
-    "جاري تحميل بيانات "+name+"...";
-
-  try {
-
-    if (!window.LightweightCharts) {
-
-      throw Error(
-        "تعذر تحميل مكتبة الشارت"
-      );
-
-    }
-
-    const url =
-      "/.netlify/functions/prices" +
-      "?type=candles&market=" +
-      encodeURIComponent(market);
-
-    const response =
-      await fetch(url,{
-        cache:"no-store"
-      });
-
-    if (id!==requestNumber) {
-      return;
-    }
-
-    let payload;
-
-    try {
-      payload = await response.json();
-    } catch {
-
-      throw Error(
-        "خدمة البيانات لا ترجع JSON صالحًا"
-      );
-
-    }
-
-    if (
-      !response.ok ||
-      payload.error ||
-      !Array.isArray(payload.values)
-    ) {
-
-      throw Error(
-        String(
-          payload.message ||
-          payload.error ||
-          "لم تصل بيانات الشموع"
-        )
-      );
-
-    }
-
-    const now =
-      Math.floor(Date.now()/1000);
-
-    const candles =
-      parseCandles(payload.values)
-        .filter(c=>c.time+900<=now);
-
-    if (candles.length<220) {
-
-      throw Error(
-        "بيانات الشموع غير كافية لحساب H1"
-      );
-
-    }
-
-    const result =
-      calculateSignals(candles);
-
-    if (id!==requestNumber) {
-      return;
-    }
-
-    const host =
-      $("signalChart");
-
-    host.classList.remove("hidden");
-
-    signalChart =
-      LightweightCharts.createChart(
-        host,
-        {
-          width:host.clientWidth||800,
-          height:host.clientHeight||560,
-
-          layout:{
-            background:{
-              type:"solid",
-              color:"#101f38"
-            },
-            textColor:"#b9d5eb"
-          },
-
-          grid:{
-            vertLines:{
-              color:"#1d3451"
-            },
-            horzLines:{
-              color:"#1d3451"
-            }
-          },
-
-          timeScale:{
-            timeVisible:true,
-            secondsVisible:false
-          },
-
-          rightPriceScale:{
-            borderColor:"#294263"
-          }
-        }
-      );
-
-    // Candlesticks
-    const candleSeries =
-      signalChart.addCandlestickSeries({
-        upColor:COLORS.buy,
-        downColor:COLORS.sell,
-        borderVisible:false,
-        wickUpColor:COLORS.buy,
-        wickDownColor:COLORS.sell
-      });
-
-    candleSeries.setData(candles);
-
-    // Signal arrows
-    const markers =
-      createMarkers(result.signals);
-
-    candleSeries.setMarkers(markers);
-
-    // EMA 9
-    const fastLine =
-      signalChart.addLineSeries({
-        color:COLORS.buy,
-        lineWidth:2,
-        priceLineVisible:false,
-        lastValueVisible:false
-      });
-
-    fastLine.setData(
-      candles.flatMap((c,i) => {
-
-        const value =
-          result.fast[i];
-
-        return value===null
-          ?[]
-          :[{
-            time:c.time,
-            value
-          }];
-
-      })
-    );
-
-    // EMA 21
-    const slowLine =
-      signalChart.addLineSeries({
-        color:COLORS.sell,
-        lineWidth:2,
-        priceLineVisible:false,
-        lastValueVisible:false
-      });
-
-    slowLine.setData(
-      candles.flatMap((c,i) => {
-
-        const value =
-          result.slow[i];
-
-        return value===null
-          ?[]
-          :[{
-            time:c.time,
-            value
-          }];
-
-      })
-    );
-
-    // Latest confirmed signal
-    const latest =
-      result.signals.at(-1);
-
-    drawPriceLevels(
-      candleSeries,
-      latest
-    );
-
-    updateSignalInfo(
-      result,
-      candles
-    );
-
-    // Show latest part of chart
-    const visibleBars = 90;
-
-    signalChart.timeScale()
-      .setVisibleLogicalRange({
-        from:Math.max(
-          0,
-          candles.length-visibleBars
-        ),
-        to:candles.length+8
-      });
-
-    // Responsive size
-    if (window.ResizeObserver) {
-
-      resizeObserver =
-        new ResizeObserver(() => {
-
-          if (signalChart) {
-
-            signalChart.applyOptions({
-              width:host.clientWidth,
-              height:host.clientHeight
-            });
-
-          }
-
-        });
-
-      resizeObserver.observe(host);
-
-    }
-
-    const buyCount =
-      result.signals.filter(
-        s=>s.direction==="BUY"
-      ).length;
-
-    const sellCount =
-      result.signals.filter(
-        s=>s.direction==="SELL"
-      ).length;
-
-    let message =
-      "تم تحميل "+
-      candles.length+
-      " شمعة M15 | "+
-      "إشارات BUY: "+
-      buyCount+
-      " | SELL: "+
-      sellCount;
-
-    if (result.hours.length<50) {
-
-      message +=
-        " | بيانات H1 غير كافية";
-
-    } else if (latest) {
-
-      const ageMinutes =
-        Math.max(
-          0,
-          (now-latest.completedAt)/60
-        );
-
-      if (ageMinutes>60) {
-
-        message +=
-          " | آخر إشارة تاريخية وليست دخولًا حاليًا";
-
-      } else {
-
-        message +=
-          " | آخر إشارة مؤكدة: "+
-          latest.direction;
-
-      }
-
-    } else {
-
-      message +=
-        " | لا توجد إشارة مطابقة للشروط";
-
-    }
-
-    $("signalStatus").textContent =
-      message;
-
-  } catch(error) {
-
-    if (id!==requestNumber) {
-      return;
-    }
-
-    console.error(error);
-
-    clearSignalChart();
-    resetValues();
-
-    $("signalStatus").textContent =
-      "تعذر تشغيل المؤشر: "+
-      error.message+
-      " — شارت TradingView بالأعلى يعمل بشكل مستقل.";
-
+  const buyCount=result.signals
+   .filter(s=>s.direction==="BUY").length;
+
+  const sellCount=result.signals
+   .filter(s=>s.direction==="SELL").length;
+
+  let message=
+   "تم تحميل "+candles.length+
+   " شمعة | BUY: "+buyCount+
+   " | SELL: "+sellCount;
+
+  if(result.hours.length<50){
+   message+=" | بيانات H1 غير كافية لتأكيد الاتجاه";
   }
 
-}
+  const lastTime=candles[candles.length-1].time+900;
 
-// ====================================
-// BUTTONS
-// ====================================
+  if(now-lastTime>3600){
+   message+=" | تنبيه: البيانات قديمة أو السوق مغلق";
+  }
 
-buttons.forEach(button => {
+  setStatus(message);
 
-  button.addEventListener(
-    "click",
-    () => loadTradingView(button)
+ }catch(error){
+  if(requestId!==requestNumber)return;
+
+  console.error(error);
+  clearChart();
+  resetPanel();
+
+  setStatus(
+   "تعذر تحميل "+MARKETS[market].name+
+   ": "+error.message
   );
+ }
+}
 
+buttons.forEach(button=>{
+ button.addEventListener("click",()=>{
+  loadMarket(button.dataset.market);
+ });
 });
 
-$("refresh").addEventListener(
-  "click",
-  () => loadTradingView(activeButton)
-);
+$("refresh").addEventListener("click",()=>{
+ loadMarket(selectedMarket);
+});
 
-$("retrySignals").addEventListener(
-  "click",
-  () => loadSignals(
-    activeButton.dataset.market
-  )
-);
-
-// ====================================
-// INITIAL LOAD
-// ====================================
-
-loadTradingView(activeButton);
-
+loadMarket("gold");
 </script>
-
 </body>
 </html>

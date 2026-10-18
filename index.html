@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071426">
+<title>SULTAN GOLD PRO | المنصة الذكية</title>
+<style>
+:root{
+  --bg:#071426;
+  --panel:#101f38;
+  --panel2:#132944;
+  --line:#294263;
+  --ice:#83d7ff;
+  --blue:#168cff;
+  --text:#f3f9ff;
+  --muted:#a8bfd8;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Tahoma,Arial,sans-serif;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:18px;
+  padding:20px 5%;
+  background:#09182b;
+  border-bottom:1px solid var(--line);
+}
+.logo{
+  color:var(--ice);
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:1px;
+  direction:ltr;
+}
+.logo small{
+  color:white;
+  font-size:11px;
+  vertical-align:top;
+}
+nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:17px;
+}
+nav a{
+  font-size:13px;
+  color:#d5e8fc;
+}
+nav a:hover{color:var(--ice)}
+.lang{
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:9px;
+  color:white;
+  padding:10px 14px;
+}
+.hero{
+  min-height:510px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:35px;
+  padding:65px 7%;
+  background:
+    radial-gradient(ellipse at 70% 25%,#15437b 0%,transparent 55%),
+    linear-gradient(135deg,#071426,#0b203d);
+}
+.eyebrow{
+  color:var(--ice);
+  letter-spacing:2px;
+  font-size:13px;
+}
+.hero h1{
+  font-size:clamp(34px,5vw,66px);
+  line-height:1.25;
+  margin:18px 0;
+}
+.hero h1 span{color:var(--ice)}
+.hero p{
+  color:var(--muted);
+  line-height:2;
+  max-width:570px;
+}
+.actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:27px;
+}
+.btn{
+  display:inline-block;
+  padding:14px 24px;
+  border-radius:10px;
+  background:var(--blue);
+  color:white;
+  font-weight:bold;
+  border:1px solid var(--blue);
+}
+.btn.outline{
+  background:transparent;
+  border-color:var(--ice);
+  color:var(--ice);
+}
+.visual{
+  position:relative;
+  padding:15px;
+  border:1px solid var(--line);
+  border-radius:25px;
+  background:linear-gradient(145deg,#112f55,#081729);
+  box-shadow:0 20px 65px #0007;
+  overflow:hidden;
+}
+.bull{
+  text-align:center;
+  font-size:110px;
+  line-height:1.3;
+  filter:drop-shadow(0 0 25px #168cff);
+}
+.visual-title{
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  color:var(--ice);
+}
+.chart{
+  height:160px;
+  margin-top:18px;
+  border-radius:12px;
+  background:
+    linear-gradient(#28445c55 1px,transparent 1px),
+    linear-gradient(90deg,#28445c55 1px,transparent 1px);
+  background-size:35px 35px;
+}
+.chart svg{width:100%;height:100%}
+.note{
+  text-align:center;
+  font-size:11px;
+  color:var(--muted);
+  margin:10px 0;
+}
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:65px 20px;
+}
+.section-head{
+  margin-bottom:30px;
+}
+.section-head h2{
+  font-size:clamp(25px,3vw,36px);
+  margin:0 0 12px;
+}
+.section-head p{
+  color:var(--muted);
+  line-height:1.8;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px;
+}
+.card{
+  padding:27px;
+  background:linear-gradient(150deg,#142c49,#0d1b30);
+  border:1px solid var(--line);
+  border-radius:18px;
+  transition:transform .2s,border-color .2s;
+}
+.card:hover{
+  transform:translateY(-4px);
+  border-color:var(--ice);
+}
+.symbol{font-size:33px}
+.card h3{color:var(--ice);font-size:20px}
+.card p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.9;
+  min-height:65px;
+}
+.status{
+  display:inline-block;
+  color:#b9cbe0;
+  font-size:12px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:7px 12px;
+}
+.card-link{
+  display:inline-block;
+  color:var(--ice);
+  font-weight:bold;
+  margin-top:20px;
+}
+.market{
+  background:#0c1d34;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.market-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+.market-item{
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--panel);
+  text-align:center;
+}
+.market-item strong{
+  display:block;
+  color:var(--ice);
+  margin-bottom:12px;
+}
+.market-item span{
+  color:var(--muted);
+  font-size:13px;
+}
+.pricing{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.price-card{
+  background:var(--panel);
+  padding:30px;
+  border:1px solid var(--line);
+  border-radius:18px;
+}
+.price-card.featured{
+  border-color:var(--ice);
+  box-shadow:0 0 25px #168cff20;
+}
+.price-card h3{color:var(--ice)}
+.price-card p{color:var(--muted);line-height:1.9}
+footer{
+  padding:40px 20px;
+  border-top:1px solid var(--line);
+  text-align:center;
+  color:var(--muted);
+  line-height:2;
+}
+footer a{color:var(--ice)}
+@media(max-width:850px){
+  .hero{grid-template-columns:1fr;padding:50px 6%}
+  .grid,.pricing{grid-template-columns:repeat(2,1fr)}
+  .market-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:550px){
+  header{justify-content:center;text-align:center}
+  nav{justify-content:center}
+  .hero{text-align:center}
+  .actions{justify-content:center}
+  .grid,.pricing{grid-template-columns:1fr}
+  .bull{font-size:85px}
+  .card p{min-height:auto}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">SULTAN GOLD <small>PRO</small></div>
+  <nav>
+    <a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+    <a href="#markets" data-ar="الأسواق" data-en="Markets">الأسواق</a>
+    <a href="#tools" data-ar="المؤشرات والأدوات" data-en="Tools">المؤشرات والأدوات</a>
+    <a href="#plans" data-ar="الاشتراكات" data-en="Plans">الاشتراكات</a>
+  </nav>
+  <button class="lang" id="langBtn" type="button">English</button>
+</header>
+
+<section class="hero" id="home">
+  <div>
+    <div class="eyebrow">SULTAN GOLD INTELLIGENCE</div>
+    <h1 data-ar="مستقبل التحليل المالي يبدأ مع SULTAN GOLD"
+        data-en="The Future of Market Analysis Starts with SULTAN GOLD">
+      مستقبل التحليل المالي يبدأ مع
+      <span>SULTAN GOLD</span>
+    </h1>
+    <p data-ar="منصة تجمع التعليم والتحليل الفني والمؤشرات والاستراتيجيات والروبوتات والخوارزميات في تجربة واحدة متطورة."
+       data-en="A platform bringing together education, technical analysis, indicators, strategies, trading bots and algorithms.">
+      منصة تجمع التعليم والتحليل الفني والمؤشرات
+      والاستراتيجيات والروبوتات والخوارزميات
+      في تجربة واحدة متطورة.
+    </p>
+    <div class="actions">
+      <a href="#tools" class="btn"
+         data-ar="استكشف المنصة"
+         data-en="Explore Platform">استكشف المنصة</a>
+      <a href="indicators.html" class="btn outline"
+         data-ar="المؤشرات الفنية"
+         data-en="Technical Indicators">المؤشرات الفنية</a>
+    </div>
+  </div>
+
+  <div class="visual">
+    <div class="bull">🐂</div>
+    <div class="visual-title">SULTAN GOLD PRO</div>
+    <div class="chart">
+      <svg viewBox="0 0 500 160" preserveAspectRatio="none"
+           aria-label="Decorative market chart">
+        <defs>
+          <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#168cff" stop-opacity=".4"/>
+            <stop offset="100%" stop-color="#168cff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M0 145 L35 125 L65 135 L100 95 L140 112 L175 72 L210 88 L245 50 L285 75 L320 38 L355 57 L390 24 L425 42 L460 12 L500 5 L500 160 L0 160 Z"
+              fill="url(#chartFill)"/>
+        <polyline
+          points="0,145 35,125 65,135 100,95 140,112 175,72 210,88 245,50 285,75 320,38 355,57 390,24 425,42 460,12 500,5"
+          fill="none" stroke="#83d7ff"
+          stroke-width="4" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <p class="note"
+       data-ar="رسم توضيحي للواجهة — ليس أسعارًا مباشرة"
+       data-en="Illustrative chart — not live prices">
+      رسم توضيحي للواجهة — ليس أسعارًا مباشرة
+    </p>
+  </div>
+</section>
+
+<section class="market" id="markets">
+  <div class="container">
+    <div class="section-head">
+      <h2 data-ar="الأسواق المالية"
+          data-en="Financial Markets">الأسواق المالية</h2>
+      <p data-ar="استكشف فئات الأسواق التي ستدعمها المنصة."
+         data-en="Explore the market categories planned for the platform.">
+        استكشف فئات الأسواق التي ستدعمها المنصة.
+      </p>
+    </div>
+    <div class="market-grid">
+      <div class="market-item"><strong>XAUUSD</strong><span data-ar="الذهب والمعادن" data-en="Gold & Metals">الذهب والمعادن</span></div>
+      <div class="market-item"><strong>FOREX</strong><span data-ar="العملات الأجنبية" data-en="Currencies">العملات الأجنبية</span></div>
+      <div class="market-item"><strong>STOCKS</strong><span data-ar="الأسهم العالمية" data-en="Global Stocks">الأسهم العالمية</span></div>
+      <div class="market-item"><strong>CRYPTO</strong><span data-ar="الأصول الرقمية" data-en="Digital Assets">الأصول الرقمية</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="container" id="tools">
+  <div class="section-head">
+    <h2 data-ar="منظومة SULTAN GOLD الذكية"
+        data-en="SULTAN GOLD Smart Ecosystem">
+      منظومة SULTAN GOLD الذكية
+    </h2>
+    <p data-ar="أدوات تعليمية وتقنية نطوّرها تدريجيًا."
+       data-en="Educational and technical tools under progressive development.">
+      أدوات تعليمية وتقنية نطوّرها تدريجيًا.
+    </p>
+  </div>
+
+  <div class="grid">
+    <article class="card">
+      <div class="symbol">📊</div>
+      <h3 data-ar="المؤشرات الفنية" data-en="Technical Indicators">المؤشرات الفنية</h3>
+      <p data-ar="استكشف مؤشرات الاتجاه والزخم والسيولة وإشارات Gold EMA Signals."
+         data-en="Explore trend, momentum, liquidity and Gold EMA Signals indicators.">
+        استكشف مؤشرات الاتجاه والزخم والسيولة وإشارات Gold EMA Signals.
+      </p>
+      <a class="card-link" href="indicators.html"
+         data-ar="فتح المؤشرات ←"
+         data-en="Open Indicators →">فتح المؤشرات ←</a>
+    </article>
+
+    <article class="card">
+      <div class="symbol">🤖</div>
+      <h3 data-ar="روبوتات التداول" data-en="Trading Bots">روبوتات التداول</h3>
+      <p data-ar="تطوير واختبار روبوتات SULTAN GOLD على الحسابات التجريبية قبل أي استخدام فعلي."
+         data-en="Developing and testing SULTAN GOLD bots on demo accounts.">
+        تطوير واختبار روبوتات SULTAN GOLD على الحسابات التجريبية قبل أي استخدام فعلي.
+      </p>
+      <span class="status" data-ar="قيد التطوير" data-en="In Development">قيد التطوير</span>
+    </article>
+
+    <article class="card">
+      <div class="symbol">🧠</div>
+      <h3 data-ar="الذكاء الاصطناعي" data-en="Artificial Intelligence">الذكاء الاصطناعي</h3>
+      <p data-ar="قسم مخطط لتحليل البيانات ودراسة الاتجاهات وتقييم الإشارات."
+         data-en="Planned AI tools for market data analysis and signal evaluation.">
+        قسم مخطط لتحليل البيانات ودراسة الاتجاهات وتقييم الإشارات.
+      </p>
+      <span class="status" data-ar="قيد التطوير" data-en="In Development">قيد التطوير</span>
+    </article>
+
+    <article class="card">
+      <div class="symbol">📈</div>
+      <h3 data-ar="الاستراتيجيات" data-en="Strategies">الاستراتيجيات</h3>
+      <p data-ar="دراسة استراتيجيات التداول وإدارة المخاطر والاختبارات التاريخية."
+         data-en="Study trading strategies, risk management and backtesting.">
+        دراسة استراتيجيات التداول وإدارة المخاطر والاختبارات التاريخية.
+      </p>
+      <span class="status" data-ar="قيد الإعداد" data-en="Coming Soon">قيد الإعداد</span>
+    </article>
+
+    <article class="card">
+      <div class="symbol">⚙️</div>
+      <h3 data-ar="الخوارزميات" data-en="Algorithms">الخوارزميات</h3>
+      <p data-ar="بناء أنظمة لتقييم شروط السوق واختبار منطق الإشارات."
+         data-en="Build systems for evaluating market conditions and testing signals.">
+        بناء أنظمة لتقييم شروط السوق واختبار منطق الإشارات.
+      </p>
+      <span class="status" data-ar="قيد التطوير" data-en="In Development">قيد التطوير</span>
+    </article>
+
+    <article class="card">
+      <div class="symbol">🎓</div>
+      <h3 data-ar="الأكاديمية التعليمية" data-en="Trading Academy">الأكاديمية التعليمية</h3>
+      <p data-ar="تعلم قراءة الشارت والشموع والدعم والمقاومة وإدارة رأس المال."
+         data-en="Learn charts, candlesticks, support, resistance and risk management.">
+        تعلم قراءة الشارت والشموع والدعم والمقاومة وإدارة رأس المال.
+      </p>
+      <span class="status" data-ar="قيد الإعداد" data-en="Coming Soon">قيد الإعداد</span>
+    </article>
+  </div>
+</main>
+
+<section class="market" id="plans">
+  <div class="container">
+    <div class="section-head">
+      <h2 data-ar="الاشتراكات والباقات"
+          data-en="Membership Plans">الاشتراكات والباقات</h2>
+      <p data-ar="تصور أولي للباقات — لم يتم تفعيل الدفع أو الاشتراكات بعد."
+         data-en="Preliminary plans — payments and subscriptions are not active.">
+        تصور أولي للباقات — لم يتم تفعيل الدفع أو الاشتراكات بعد.
+      </p>
+    </div>
+    <div class="pricing">
+      <div class="price-card">
+        <h3>FREE</h3>
+        <p data-ar="محتوى تعريفي وتعليمي مجاني."
+           data-en="Free introductory and educational content.">
+          محتوى تعريفي وتعليمي مجاني.
+        </p>
+        <span class="status" data-ar="باقة مقترحة" data-en="Proposed Plan">باقة مقترحة</span>
+      </div>
+      <div class="price-card featured">
+        <h3>PRO</h3>
+        <p data-ar="باقة مخططة للمؤشرات والأدوات التعليمية المتقدمة."
+           data-en="Planned access to advanced indicators and educational tools.">
+          باقة مخططة للمؤشرات والأدوات التعليمية المتقدمة.
+        </p>
+        <span class="status" data-ar="قيد التطوير" data-en="In Development">قيد التطوير</span>
+      </div>
+      <div class="price-card">
+        <h3>ELITE</h3>
+        <p data-ar="باقة مستقبلية للأدوات والخوارزميات المتقدمة."
+           data-en="Future access to advanced tools and algorithms.">
+          باقة مستقبلية للأدوات والخوارزميات المتقدمة.
+        </p>
+        <span class="status" data-ar="قيد التخطيط" data-en="Planned">قيد التخطيط</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>SULTAN GOLD PRO</strong>
+  <p data-ar="سلطان الزهراني | اصنع لنفسك مدرسة"
+     data-en="Sultan Alzahrani | Build Your Own School">
+    سلطان الزهراني | اصنع لنفسك مدرسة
+  </p>
+  <p data-ar="المحتوى تعليمي وليس توصية مالية. التداول ينطوي على مخاطر."
+     data-en="Educational content only, not financial advice. Trading involves risk.">
+    المحتوى تعليمي وليس توصية مالية. التداول ينطوي على مخاطر.
+  </p>
+  <a href="https://t.me/sultanGold0"
+     target="_blank" rel="noopener noreferrer">
+    Telegram | @sultanGold0
+  </a>
+  <p>© 2026 SULTAN GOLD PRO</p>
+</footer>
+
+<script>
+const langBtn = document.getElementById("langBtn");
+let currentLang = "ar";
+
+langBtn.addEventListener("click", function(){
+  currentLang = currentLang === "ar" ? "en" : "ar";
+  document.documentElement.lang = currentLang;
+  document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+  langBtn.textContent = currentLang === "ar" ? "English" : "العربية";
+
+  document.querySelectorAll("[data-ar][data-en]").forEach(function(el){
+    el.textContent = el.getAttribute("data-" + currentLang);
+  });
+});
+</script>
+
+</body>
+</html>

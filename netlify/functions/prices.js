@@ -1,156 +1,211 @@
 "use strict";
 
 // SULTAN GOLD PRO
-// Netlify Market Data Function
+// Unified market-data service for Netlify
 
-const MARKETS = {
-  gold: {
-    symbol: "XAU/USD"
-  },
-  silver: {
-    symbol: "XAG/USD"
-  },
-  forex: {
-    symbol: "EUR/USD"
-  },
-  us: {
-    symbol: "AAPL"
-  },
-  saudi: {
-    symbol: "1120",
-    exchange: "TADAWUL"
-  },
-  crypto: {
-    symbol: "BTC/USD"
-  },
-  nasdaq: {
-    symbol: "QQQ"
-  },
-  oil: {
-    symbol: "WTI/USD"
-  }
+const DEFAULTS = {
+  gold:"XAU/USD",
+  silver:"XAG/USD",
+  forex:"EUR/USD",
+  us:"AAPL",
+  saudi:"1120",
+  crypto:"BTC/USD",
+  nasdaq:"QQQ",
+  oil:"WTI/USD"
 };
 
-function reply(statusCode, data) {
+const ALLOWED_FRAMES = new Set([
+  "1min",
+  "5min",
+  "15min",
+  "30min",
+  "1h",
+  "4h",
+  "1day",
+  "1week",
+  "1month"
+]);
+
+const VALID_MARKETS = new Set(
+  Object.keys(DEFAULTS)
+);
+
+function reply(statusCode,data){
   return {
     statusCode,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "public, max-age=60, s-maxage=90",
-      "Access-Control-Allow-Origin": "*"
+    headers:{
+      "Content-Type":
+        "application/json; charset=utf-8",
+      "Access-Control-Allow-Origin":"*",
+      "Cache-Control":
+        "public, max-age=60, s-maxage=90"
     },
-    body: JSON.stringify(data)
+    body:JSON.stringify(data)
   };
 }
 
-exports.handler = async function(event) {
-  if (event.httpMethod && event.httpMethod !== "GET") {
-    return reply(405, {
-      error: "Method not allowed"
+function validSymbol(symbol){
+  return (
+    symbol.length>=1 &&
+    symbol.length<=35 &&
+    /^[A-Z0-9._/-]+$/.test(symbol)
+  );
+}
+
+exports.handler=async function(event){
+
+  if(event.httpMethod && event.httpMethod!=="GET"){
+    return reply(405,{
+      error:"Method not allowed"
     });
   }
 
-  const apiKey = process.env.TWELVE_DATA_API_KEY;
+  const apiKey=process.env.TWELVE_DATA_API_KEY;
 
-  if (!apiKey) {
-    return reply(500, {
-      error: "TWELVE_DATA_API_KEY missing"
+  if(!apiKey){
+    return reply(500,{
+      error:"TWELVE_DATA_API_KEY missing"
     });
   }
 
-  const params = event.queryStringParameters || {};
-  const market = String(params.market || "gold").toLowerCase();
-  const type = String(params.type || "candles").toLowerCase();
-  const config = MARKETS[market];
+  const params=event.queryStringParameters||{};
 
-  if (!config) {
-    return reply(400, {
-      error: "Unsupported market"
+  const market=String(
+    params.market||"gold"
+  ).toLowerCase();
+
+  const type=String(
+    params.type||"candles"
+  ).toLowerCase();
+
+  const interval=String(
+    params.interval||"15min"
+  ).toLowerCase();
+
+  if(!VALID_MARKETS.has(market)){
+    return reply(400,{
+      error:"Unsupported market"
     });
   }
 
-  if (type !== "candles" && type !== "price") {
-    return reply(400, {
-      error: "Unsupported request type"
+  if(type!=="candles"&&type!=="price"){
+    return reply(400,{
+      error:"Unsupported request type"
     });
   }
 
-  try {
-    const endpoint = type === "candles"
-      ? "https://api.twelvedata.com/time_series"
-      : "https://api.twelvedata.com/price";
+  if(type==="candles"&&!ALLOWED_FRAMES.has(interval)){
+    return reply(400,{
+      error:"Unsupported timeframe"
+    });
+  }
 
-    const url = new URL(endpoint);
+  const symbol=String(
+    params.symbol||DEFAULTS[market]
+  ).trim().toUpperCase();
 
-    url.searchParams.set("symbol", config.symbol);
-    url.searchParams.set("apikey", apiKey);
+  if(!validSymbol(symbol)){
+    return reply(400,{
+      error:"Invalid symbol",
+      message:
+        "Use a valid market symbol such as NVDA, BTC/USD or EUR/USD"
+    });
+  }
 
-    if (config.exchange) {
-      url.searchParams.set("exchange", config.exchange);
+  // Saudi stock symbols use the Saudi exchange.
+  // Actual availability is determined by Twelve Data.
+  const exchange=market==="saudi"
+    ?"TADAWUL"
+    :null;
+
+  try{
+
+    const endpoint=type==="candles"
+      ?"https://api.twelvedata.com/time_series"
+      :"https://api.twelvedata.com/price";
+
+    const url=new URL(endpoint);
+
+    url.searchParams.set("symbol",symbol);
+    url.searchParams.set("apikey",apiKey);
+
+    if(exchange){
+      url.searchParams.set("exchange",exchange);
     }
 
-    if (type === "candles") {
-      url.searchParams.set("interval", "15min");
-      url.searchParams.set("outputsize", "500");
-      url.searchParams.set("timezone", "UTC");
-      url.searchParams.set("format", "JSON");
+    if(type==="candles"){
+      url.searchParams.set("interval",interval);
+      url.searchParams.set("outputsize","500");
+      url.searchParams.set("timezone","UTC");
+      url.searchParams.set("format","JSON");
     }
 
-    const response = await fetch(url.toString(), {
-      signal: AbortSignal.timeout(15000)
+    const response=await fetch(url.toString(),{
+      signal:AbortSignal.timeout(15000)
     });
 
-    const data = await response.json();
+    const data=await response.json();
 
-    if (
+    if(
       !response.ok ||
-      data.status === "error" ||
+      data.status==="error" ||
       data.code
-    ) {
-      return reply(502, {
-        error: "Market data provider error",
+    ){
+      return reply(502,{
+        error:"Market data provider error",
         market,
-        message: data.message || "Unable to retrieve market data"
+        symbol,
+        interval,
+        message:
+          data.message||
+          "Unable to retrieve market data"
       });
     }
 
-    if (type === "price") {
-      const price = Number(data.price);
+    if(type==="price"){
+      const price=Number(data.price);
 
-      if (!Number.isFinite(price)) {
-        return reply(502, {
-          error: "Invalid price data"
+      if(!Number.isFinite(price)){
+        return reply(502,{
+          error:"Invalid price response",
+          market,
+          symbol
         });
       }
 
-      return reply(200, {
+      return reply(200,{
         market,
-        symbol: config.symbol,
+        symbol,
         price
       });
     }
 
-    if (!Array.isArray(data.values)) {
-      return reply(502, {
-        error: "No candle data returned",
+    if(!Array.isArray(data.values)){
+      return reply(502,{
+        error:"No candle data",
         market,
-        message: "This symbol or interval may not be available on your Twelve Data plan"
+        symbol,
+        interval,
+        message:
+          "Symbol or interval may not be supported by this data plan"
       });
     }
 
-    return reply(200, {
+    return reply(200,{
       market,
-      symbol: config.symbol,
-      interval: "15min",
-      timezone: "UTC",
-      count: data.values.length,
-      values: data.values
+      symbol,
+      interval,
+      timezone:"UTC",
+      count:data.values.length,
+      values:data.values
     });
 
-  } catch (error) {
-    return reply(502, {
-      error: "Failed to fetch market data",
-      message: error.message
+  }catch(error){
+
+    return reply(502,{
+      error:"Failed to fetch market data",
+      message:error.message
     });
+
   }
 };
